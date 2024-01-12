@@ -1,3 +1,11 @@
+import { useDispatch } from "react-redux"
+
+// actions from slices
+// easy nav
+import {
+    setMainDir,
+} from '../features/easy-nav/easyNavSlice'
+
 // menu icon
 import { AiOutlineMenu } from "react-icons/ai"
 // home icon
@@ -10,6 +18,14 @@ import UnauthorizedHeader from "./header-sub-components/UnauthorizedHeader"
 import AuthorizedHeader from "./header-sub-components/AuthorizedHeader"
 
 const Header = () => {
+
+    // hooks
+    const dispatch = useDispatch()
+
+    // set main dir handler
+    const setMainDirHandler = dir => {
+        dispatch(setMainDir(dir))
+    }
 
     // show side bar
     const homeMainSideBar = () => {
@@ -28,18 +44,26 @@ const Header = () => {
                 >
                     <AiOutlineMenu />
                 </div>
-                <div className="text-emerald-700 text-2xl opacity-[.75] cursor-pointer hidden sm:flex items-center font-bold ">
+                <div className="text-emerald-700 text-2xl opacity-[.75] cursor-pointer hidden sm:flex items-center font-bold " 
+                    onClick={()=>{
+                        setMainDirHandler('HOME')
+                    }}
+                >
                     <span>ishare</span>
                 </div>
-                <div className="cursor-pointer text-emerald-700 text-2xl sm:text-2xl flex items-center sm:hidden">
+                <div className="cursor-pointer text-emerald-700 text-2xl sm:text-2xl flex items-center sm:hidden" 
+                    onClick={()=>{
+                        setMainDirHandler('HOME')
+                    }}
+                >
                     <IoMdHome />
                 </div>
             </div>
             {/* site main search bar container */}
             <div className="flex-grow flex items-center justify-end">
                 <div className="flex-grow flex items-center justify-end mr-3">
-                    <div className="flex items-center py-[.1rem] bg-gray-200 rounded-full px-3">
-                        <CiSearch className="text-emerald-700 text-2xl cursor-pointer"/>
+                    <div className="flex items-center py-[.1rem] bg-black bg-opacity-[.13] rounded-full px-1">
+                        <CiSearch className="text-emerald-700 text-xl cursor-pointer"/>
                         <input type="text" className="border-none bg-transparent focus:outline-none text-emerald-700 text-xs font-serif" placeholder="username..."/>
                     </div>
                 </div>

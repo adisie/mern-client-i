@@ -29,13 +29,18 @@ import LoginSignup from '../users/LoginSignup'
 const Home = () => {
   // states from slices
   const mainDir = useSelector(selectMainDir)
+
   return (
     <div className='flex-grow'>
       <div className='max-w-[1200px] mx-auto px-1 flex h-full relative'>
         {
-         true 
+         mainDir === 'HOME' 
           ?
           <HomeMenuSideBar />
+          :
+          mainDir === 'GROUPS'
+          ?
+          <GroupsSideBar />
           :
           <></>
         }

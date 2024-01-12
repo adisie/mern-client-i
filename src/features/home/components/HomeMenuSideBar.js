@@ -1,6 +1,13 @@
+import {useDispatch} from 'react-redux'
+
+// actions from slices
+// easy navs
+import {
+  setMainDir,
+} from '../../easy-nav/easyNavSlice'
 
 // home icon
-import { IoMdHome } from "react-icons/io"
+import { IoMdHome, IoMdPhoneLandscape } from "react-icons/io"
 // groups icon
 import { MdOutlineSupervisorAccount } from "react-icons/md"
 // channels
@@ -12,6 +19,14 @@ import { RiArrowLeftFill } from "react-icons/ri"
 
 
 const HomeMenuSideBar = () => {
+
+  // hooks
+  const dispatch = useDispatch()
+
+  // set man dir handler
+  const setMainDirHandler = dir => {
+    dispatch(setMainDir(dir))
+  }
 
   // hide home main side bar
   const hideHomeMainSidBar = () => {
@@ -29,22 +44,38 @@ const HomeMenuSideBar = () => {
         <RiArrowLeftFill />
       </div>
         <ul>
-          <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1">
+          <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1" 
+            onClick={()=>{
+              setMainDirHandler('HOME')
+            }}
+          >
             <IoMdHome className="text-xl mb-1 mr-1"/>
             <span>Home</span>
           </li>
-          <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1">
+          <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1" 
+            onClick={()=>{
+              setMainDirHandler('GROUPS')
+            }}
+          >
             <MdOutlineSupervisorAccount className="text-xl mb-1 mr-1"/>
             <span>Groups</span>
           </li>
-          <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1">
+          <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1" 
+            onClick={()=>{
+              setMainDirHandler('CHANNELS')
+            }}
+          >
             <GrChannel className="text-xl mb-1 mr-1"/>
             <span>Channels</span>
           </li>
           {
             !true
             ?
-          <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1">
+          <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1" 
+            onClick={()=>{
+              setMainDirHandler('CHATS')
+            }}
+          >
             <IoChatbubblesSharp className="text-xl mb-1 mr-1"/>
             <span>Chats</span>
           </li>
@@ -60,7 +91,11 @@ const HomeMenuSideBar = () => {
           </div>
           :
           <div className="mt-5 flex items-center">
-            <button className="w-[65%] border border-emerald-700 border-opacity-[.5] py-[.13rem] rounded-sm">Login</button>
+            <button className="w-[65%] border border-emerald-700 border-opacity-[.5] py-[.13rem] rounded-sm" 
+              onClick={()=>{
+                setMainDirHandler('AUTH')
+              }}
+            >Login</button>
           </div>
         }
       </div>

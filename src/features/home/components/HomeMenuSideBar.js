@@ -39,18 +39,28 @@ const HomeMenuSideBar = () => {
       homeMainSideBar.classList.add('left-[-100vw]')
     }
   }
+
+  // hide/show home main side bar
+  const hideShowHomeMainSideBar = () => {
+    let homeMainSideBar = document.getElementById('home-main-side-bar')
+    if(homeMainSideBar.classList.contains('absolute')){
+      homeMainSideBar.classList.add('left-[-100vw]')
+    }
+  }
+
   return (
     <div className='min-w-[250px] bg-gray-100 sm:w-[25%] h-full absolute left-[-100vw] z-50 sm:bg-white sm:relative sm:left-0' id="home-main-side-bar">
-      <div className="text-emerald-700 text-xs font-serif h-full pt-7 pr-1 sm:pt-3 relative">
-      <div className="text-2xl absolute top-[.1rem] right-[.1rem] cursor-pointer sm:hidden" 
-        onClick={hideHomeMainSidBar}
-      >
-        <RiArrowLeftFill />
-      </div>
+      <div className="text-emerald-700 text-xs font-serif h-full pt-3 pr-1 sm:pt-3 relative">
+        {/* <div className="text-2xl absolute top-[.1rem] right-[.1rem] cursor-pointer sm:hidden" 
+          onClick={hideHomeMainSidBar}
+        >
+          <RiArrowLeftFill />
+        </div> */}
         <ul>
           <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1" 
             onClick={()=>{
               setMainDirHandler('HOME')
+              hideHomeMainSidBar()
             }}
           >
             <IoMdHome className="text-xl mb-1 mr-1"/>
@@ -99,6 +109,7 @@ const HomeMenuSideBar = () => {
               onClick={()=>{
                 setMainDirHandler('AUTH')
                 dispatch(setIsLogin(true))
+                hideHomeMainSidBar()
               }}
             >Login</button>
           </div>

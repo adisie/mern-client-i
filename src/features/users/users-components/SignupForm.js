@@ -43,9 +43,77 @@ const SignupForm = () => {
     }
   }
 
+  // email validator
+  const emailValidator = () => {
+    let emailError = document.querySelector('#signup-email-error')
+    const emailPattern = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/
+    if(!email.trim()){
+      emailError.textContent = 'email required'
+    }else if(!emailPattern.test(email)){
+      emailError.textContent = 'invalid email'
+    }else{
+      emailError.textContent = ''
+    }
+  }
+
+  // password validator
+  const passwordValidator = () => {
+    let passwordError = document.querySelector('#signup-password-error')
+    if(!password){
+      passwordError.textContent = 'password required'
+    }else if(password.length < 3){
+      passwordError.textContent = 'too short password'
+    }else {
+      passwordError.textContent = ''
+    }
+  }
+
+  // password2 validator
+  const password2Validator = () => {
+    let password2Error = document.querySelector('#signup-password2-error')
+    if(!password2){
+      password2Error.textContent = 'confrim password'
+    }else if(password !== password2){
+      password2Error.textContent = 'passwords not match'
+    }else {
+      password2Error.textContent = ''
+    }
+  }
+
   // submit handler
   const submitHandler = () => {
-    console.log({username,email,password})
+    let usernameError = document.getElementById('signup-username-error')
+    let emailError = document.querySelector('#signup-email-error')
+    let passwordError = document.querySelector('#signup-password-error')
+    let password2Error = document.querySelector('#signup-password2-error')
+
+    if(!username.trim() && !email.trim() && !password && !password2){
+      usernameError.textContent = 'username required'
+      emailError.textContent = 'email required'
+      passwordError.textContent = 'password required'
+      password2Error.textContent = 'confirm password'
+    }else if(username.trim() && !email.trim() && !password && !password2){
+      usernameError.textContent = ''
+      emailError.textContent = 'email required'
+      passwordError.textContent = 'password required'
+      password2Error.textContent = 'confirm password'
+    }else if(username.trim() && email.trim() && !password && !password2){
+      usernameError.textContent = ''
+      emailError.textContent = ''
+      passwordError.textContent = 'password required'
+      password2Error.textContent = 'confirm password'
+    }else if(username.trim() && email.trim() && password && !password2){
+      usernameError.textContent = ''
+      emailError.textContent = ''
+      passwordError.textContent = ''
+      password2Error.textContent = 'confirm password'
+    }else if(username.trim() && email.trim() && password && password2){
+      if(usernameError.textContent || emailError.textContent || passwordError.textContent || password2Error.textContent){
+        console.log('YOU CANT SUBMIT')
+      }else{
+        console.log('YOU CAN SUBMIT')
+      }
+    }
   }
 
   return (
@@ -73,10 +141,11 @@ const SignupForm = () => {
             <input type="text" name="email" placeholder="email" className="border-none bg-transparent focus:outline-none flex-grow" 
               value={email} 
               onChange={e=>setEmail(e.target.value)} 
+              onKeyUp={emailValidator}
             />
             <MdEmail className="text-xl opacity-[.5]"/>
           </div>
-          <div className="text-center text-[.7rem] italic text-red-600"></div>
+          <div className="text-center text-[.7rem] italic text-red-600" id="signup-email-error"></div>
         </div>
 
         {/* password */}
@@ -85,6 +154,7 @@ const SignupForm = () => {
             <input type={isHidden ? "password" : "text"} name="password" placeholder="password" className="border-none bg-transparent focus:outline-none flex-grow" 
               value={password} 
               onChange={e=>setPassword(e.target.value)} 
+              onKeyUp={passwordValidator} 
             />
             {
               isHidden
@@ -98,7 +168,7 @@ const SignupForm = () => {
               />
             }
           </div>
-          <div className="text-center text-[.7rem] italic text-red-600"></div>
+          <div className="text-center text-[.7rem] italic text-red-600" id="signup-password-error"></div>
         </div>
 
         {/* confrim password */}
@@ -106,7 +176,8 @@ const SignupForm = () => {
           <div className="flex items-center bg-white rounded-sm px-3 py-[.2rem]">
             <input type={isHidden2 ? "password" : "text"} name="password2" placeholder="confirm password" className="border-none bg-transparent focus:outline-none flex-grow" 
               value={password2} 
-              onChange={e=>setPassword2(e.target.value)}
+              onChange={e=>setPassword2(e.target.value)} 
+              onKeyUp={password2Validator} 
             />
             {
               isHidden2
@@ -120,7 +191,7 @@ const SignupForm = () => {
               />
             }
           </div>
-          <div className="text-center text-[.7rem] italic text-red-600"></div>
+          <div className="text-center text-[.7rem] italic text-red-600" id="signup-password2-error"></div>
         </div>
 
         {/* /////////////////////// */}

@@ -34,7 +34,7 @@ const Home = () => {
     <div className='flex-grow'>
       <div className='max-w-[1200px] mx-auto px-1 flex h-full relative'>
         {
-         mainDir === 'HOME' 
+         mainDir === 'HOME' || mainDir === 'AUTH'
           ?
           <HomeMenuSideBar />
           :

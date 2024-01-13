@@ -1,7 +1,7 @@
 
 const Posts = () => {
   return (
-    <div className='bg-blue-300 flex-grow'>Posts</div>
+    <div className='bg-red-100 flex-grow'>Posts</div>
   )
 }
 

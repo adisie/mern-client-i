@@ -1,3 +1,12 @@
+import {useDispatch,useSelector} from 'react-redux'
+
+// actions from slices
+// group slice
+import {
+    setGroupDir,
+    selectGroupDir,
+} from '../groupsSlice'
+
 // search icons
 import { CiSearch } from "react-icons/ci"
 // plus
@@ -9,6 +18,11 @@ import { MdOutlineCancel } from "react-icons/md"
 
 const GroupsSideBarHeader = () => {
 
+    // state from slices
+    const groupDir = useSelector(selectGroupDir)
+
+    // hooks
+    const dispatch = useDispatch()
 
     // decore active link
     const decoreActiveLink = (flag) => {
@@ -21,6 +35,7 @@ const GroupsSideBarHeader = () => {
             joinGroupLink.classList.add('font-normal')
             joinGroupLink.classList.remove('font-bold')
             joinGroupLink.classList.remove('underline')
+            dispatch(setGroupDir('ALL'))
         }else if(flag === 'JOIN'){
             allGroupLink.classList.remove('font-bold')
             allGroupLink.classList.add('font-normal')
@@ -28,6 +43,7 @@ const GroupsSideBarHeader = () => {
             joinGroupLink.classList.remove('font-normal')
             joinGroupLink.classList.add('font-bold')
             joinGroupLink.classList.add('underline')
+            dispatch(setGroupDir('JOIN'))
         }
     }
 
@@ -52,25 +68,51 @@ const GroupsSideBarHeader = () => {
     }
 
   return (
-    <div className="flex items-center justify-between text-xs text-emerald-700 font-serif border-b border-emerald-700 border-opacity-[.13] py-1 mt-1 relative">
+    <div className="flex items-center justify-between text-xs text-emerald-700 font-serif border-b-2 border-emerald-700 border-opacity-[.13] py-1 mt-1 relative">
         {/* search bar container */}
-        <div className="h-full w-full hidden  bg-gray-100 sm:bg-white absolute items-center px-1" id="group-header-search-bar-container">
-            <div className="flex-grow">
-                <div className="flex items-center bg-black bg-opacity-[.13] rounded-full px-2 py-[.13rem]">
-                    <CiSearch className="cursor-pointer text-xl"/>
-                    <div className="flex-grow flex items-center">
-                        <input type="text" placeholder="find group" className="w-full bg-transparent border-none focus:outline-none"/>
-                    </div>
-                    <div>
-                        <MdOutlineCancel className="cursor-pointer" 
-                            onClick={()=>{
-                                hideShowSearchBar()
-                            }}
-                        />
+        {
+            groupDir === 'ALL'
+            ?
+            <div className="h-full w-full hidden  bg-gray-100 sm:bg-white absolute items-center px-1" id="group-header-search-bar-container">
+                <div className="flex-grow">
+                    <div className="flex items-center bg-black bg-opacity-[.13] rounded-full px-2 py-[.13rem]">
+                        <CiSearch className="cursor-pointer text-xl"/>
+                        <div className="flex-grow flex items-center">
+                            <input type="text" placeholder="find groups" className="w-full bg-transparent border-none focus:outline-none"/>
+                        </div>
+                        <div>
+                            <MdOutlineCancel className="cursor-pointer" 
+                                onClick={()=>{
+                                    hideShowSearchBar()
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+            :
+            groupDir === 'JOIN'
+            ?
+            <div className="h-full w-full hidden  bg-gray-100 sm:bg-white absolute items-center px-1" id="group-header-search-bar-container">
+                <div className="flex-grow">
+                    <div className="flex items-center bg-black bg-opacity-[.13] rounded-full px-2 py-[.13rem]">
+                        <CiSearch className="cursor-pointer text-xl"/>
+                        <div className="flex-grow flex items-center">
+                            <input type="text" placeholder="find groups" className="w-full bg-transparent border-none focus:outline-none"/>
+                        </div>
+                        <div>
+                            <MdOutlineCancel className="cursor-pointer" 
+                                onClick={()=>{
+                                    hideShowSearchBar()
+                                }}
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            :
+            <></>
+        }
         {/* nav container */}
         <div className="flex items-center">
             <div>

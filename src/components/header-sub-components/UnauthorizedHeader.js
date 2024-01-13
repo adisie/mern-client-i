@@ -5,6 +5,10 @@ import { useDispatch } from "react-redux"
 import {
   setMainDir,
 } from '../../features/easy-nav/easyNavSlice'
+// user slices
+import {
+  setIsLogin,
+} from '../../features/users/usersSlice'
 
 const UnauthorizedHeader = () => {
   // hooks
@@ -20,6 +24,7 @@ const UnauthorizedHeader = () => {
             <button className="px-[1rem] cursor-pointer py-[.13rem] border border-emerald-700 border-opacity-[.75] rounded-sm transition-all ease-in-out duration-500 hover:bg-emerald-700 hover:text-gray-200 hover:border-opacity-0 "
               onClick={()=>{
                 setMainDirHandler('AUTH')
+                dispatch(setIsLogin(true))
               }}
             >login</button>
         </div>
@@ -27,6 +32,7 @@ const UnauthorizedHeader = () => {
         <button className="px-[1rem] cursor-pointer py-[.13rem] border border-emerald-700 border-opacity-[.75] rounded-sm transition-all ease-in-out duration-500 hover:bg-emerald-700 hover:text-gray-200 hover:border-opacity-0 ml-3" 
           onClick={()=>{
             setMainDirHandler('AUTH')
+            dispatch(setIsLogin(false))
           }}
         >signup</button>
         </div>

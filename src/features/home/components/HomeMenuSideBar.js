@@ -5,6 +5,10 @@ import {useDispatch} from 'react-redux'
 import {
   setMainDir,
 } from '../../easy-nav/easyNavSlice'
+// users slices
+import {
+  setIsLogin,
+} from '../../users/usersSlice'
 
 // home icon
 import { IoMdHome } from "react-icons/io"
@@ -94,6 +98,7 @@ const HomeMenuSideBar = () => {
             <button className="w-[65%] border border-emerald-700 border-opacity-[.5] py-[.13rem] rounded-sm" 
               onClick={()=>{
                 setMainDirHandler('AUTH')
+                dispatch(setIsLogin(true))
               }}
             >Login</button>
           </div>

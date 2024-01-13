@@ -35,7 +35,7 @@ const Header = () => {
     const homeMainSideBar = () => {
         let homeMainSideBar = document.getElementById('home-main-side-bar')
         let groupsSideBar = document.getElementById('groups-left-side-bar-container')
-        if(mainDir === 'HOME'){
+        if(mainDir === 'HOME' || mainDir === 'AUTH'){
             if(homeMainSideBar.classList.contains('left-[-100vw]')){
                 homeMainSideBar.classList.remove('left-[-100vw]')
             }
@@ -71,14 +71,44 @@ const Header = () => {
                 </div>
             </div>
             {/* site main search bar container */}
-            <div className="flex-grow flex items-center justify-end">
-                <div className="flex-grow flex items-center justify-end mr-3">
-                    <div className="flex items-center py-[.1rem] bg-black bg-opacity-[.13] rounded-full px-1">
-                        <CiSearch className="text-emerald-700 text-xl cursor-pointer"/>
-                        <input type="text" className="border-none bg-transparent focus:outline-none text-emerald-700 text-xs font-serif" placeholder="username..."/>
+            {
+                mainDir === 'HOME'
+                ?
+                <div className="flex-grow flex items-center justify-end">
+                    <div className="flex-grow flex items-center justify-end mr-3">
+                        <div className="flex items-center py-[.1rem] bg-black bg-opacity-[.13] rounded-full px-1">
+                            <CiSearch className="text-emerald-700 text-xl cursor-pointer"/>
+                            <input type="text" className="border-none bg-transparent focus:outline-none text-emerald-700 text-xs font-serif" placeholder="username..."/>
+                        </div>
                     </div>
                 </div>
-            </div>
+                :
+                mainDir === 'GROUPS'
+                ?
+                <div className="flex-grow flex items-center justify-end">
+                    <div className="flex-grow flex items-center justify-end mr-3">
+                        <div className="flex items-center py-[.1rem] bg-black bg-opacity-[.13] rounded-full px-1">
+                            <CiSearch className="text-emerald-700 text-xl cursor-pointer"/>
+                            <input type="text" className="border-none bg-transparent focus:outline-none text-emerald-700 text-xs font-serif" placeholder="username..."/>
+                        </div>
+                    </div>
+                </div>
+                :
+                mainDir === 'CHANNELS'
+                ?
+                <div className="flex-grow flex items-center justify-end">
+                    <div className="flex-grow flex items-center justify-end mr-3">
+                        <div className="flex items-center py-[.1rem] bg-black bg-opacity-[.13] rounded-full px-1">
+                            <CiSearch className="text-emerald-700 text-xl cursor-pointer"/>
+                            <input type="text" className="border-none bg-transparent focus:outline-none text-emerald-700 text-xs font-serif" placeholder="username..."/>
+                        </div>
+                    </div>
+                </div>
+                :
+                <></>
+
+
+            }
             {/* header right side controllers container */}
             <div>
                 {

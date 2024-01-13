@@ -1,7 +1,7 @@
 
 const Groups = () => {
   return (
-    <div>Groups</div>
+    <div className="bg-blue-300 flex-grow">Groups</div>
   )
 }
 

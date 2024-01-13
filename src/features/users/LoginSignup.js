@@ -14,7 +14,7 @@ const LoginSignup = () => {
   // states from slices
   const isLogin = useSelector(selectIsLogin)
   return (
-    <div className='bg-green-300 flex-grow'>
+    <div className='flex-grow flex justify-center pt-5'>
       {
         isLogin 
         ?

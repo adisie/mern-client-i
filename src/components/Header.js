@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux"
+import { useDispatch,useSelector } from "react-redux"
 
 // actions from slices
 // easy nav
 import {
     setMainDir,
+    selectMainDir,
 } from '../features/easy-nav/easyNavSlice'
 
 // menu icon
@@ -19,6 +20,9 @@ import AuthorizedHeader from "./header-sub-components/AuthorizedHeader"
 
 const Header = () => {
 
+    // states from slices
+    const mainDir = useSelector(selectMainDir)
+
     // hooks
     const dispatch = useDispatch()
 
@@ -30,8 +34,15 @@ const Header = () => {
     // show side bar
     const homeMainSideBar = () => {
         let homeMainSideBar = document.getElementById('home-main-side-bar')
-        if(homeMainSideBar.classList.contains('left-[-100vw]')){
-            homeMainSideBar.classList.remove('left-[-100vw]')
+        let groupsSideBar = document.getElementById('groups-left-side-bar-container')
+        if(mainDir === 'HOME'){
+            if(homeMainSideBar.classList.contains('left-[-100vw]')){
+                homeMainSideBar.classList.remove('left-[-100vw]')
+            }
+        }else if(mainDir === 'GROUPS'){
+            if(groupsSideBar.classList.contains('left-[-100vw]')){
+                groupsSideBar.classList.remove('left-[-100vw]')
+            }
         }
     }
   return (

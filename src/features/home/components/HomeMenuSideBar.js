@@ -7,7 +7,7 @@ import {
 } from '../../easy-nav/easyNavSlice'
 
 // home icon
-import { IoMdHome, IoMdPhoneLandscape } from "react-icons/io"
+import { IoMdHome } from "react-icons/io"
 // groups icon
 import { MdOutlineSupervisorAccount } from "react-icons/md"
 // channels
@@ -36,7 +36,7 @@ const HomeMenuSideBar = () => {
     }
   }
   return (
-    <div className='w-[25%] h-full absolute left-[-100vw] z-50 bg-white sm:relative sm:left-0' id="home-main-side-bar">
+    <div className='min-w-[250px] bg-gray-100 sm:w-[25%] h-full absolute left-[-100vw] z-50 sm:bg-white sm:relative sm:left-0' id="home-main-side-bar">
       <div className="text-emerald-700 text-xs font-serif h-full pt-7 pr-1 sm:pt-3 relative">
       <div className="text-2xl absolute top-[.1rem] right-[.1rem] cursor-pointer sm:hidden" 
         onClick={hideHomeMainSidBar}

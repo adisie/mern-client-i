@@ -18,9 +18,10 @@ import Groups from '../groups/Groups'
 import GroupsSideBar from '../groups/groups-components/GroupsSideBar'
 // channels
 import Channels from '../channels/Channels'
-
 // chats
 import Chats from '../chats/Chats'
+// profile
+import Profile from '../profile/Profile'
 
 // users component
 // login and sign up
@@ -38,7 +39,7 @@ const Home = () => {
     <div className='flex-grow'>
       <div className='max-w-[1200px] mx-auto px-1 flex h-full relative'>
         {
-         mainDir === 'HOME' || mainDir === 'AUTH'
+         mainDir === 'HOME' || mainDir === 'AUTH' || mainDir === 'PROFILE'
           ?
           <HomeMenuSideBar />
           :
@@ -64,6 +65,10 @@ const Home = () => {
           mainDir === 'CHATS'
           ?
           <Chats />
+          :
+          mainDir === 'PROFILE'
+          ?
+          <Profile />
           :
           mainDir === 'AUTH'
           ?

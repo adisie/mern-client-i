@@ -44,7 +44,7 @@ const Header = () => {
     const homeMainSideBar = () => {
         let homeMainSideBar = document.getElementById('home-main-side-bar')
         let groupsSideBar = document.getElementById('groups-left-side-bar-container')
-        if(mainDir === 'HOME' || mainDir === 'AUTH'){
+        if(mainDir === 'HOME' || mainDir === 'AUTH' || mainDir === 'PROFILE'){
             if(homeMainSideBar.classList.contains('left-[-100vw]')){
                 homeMainSideBar.classList.remove('left-[-100vw]')
             }

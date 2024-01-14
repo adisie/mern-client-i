@@ -1,15 +1,19 @@
 import {createSlice,createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
 
+// local user
+const localUser = JSON.parse((localStorage.getItem('user')))
+
 // initial state
 const initialState = {
     isLogin: true,
-    user: null,
+    user: localUser ? localUser : null,
     isLoading: false,
     isError: false,
     errors: null,
 }
 
+// login
 export const login = createAsyncThunk('users/signup',async data => {
     try{
         const response = await axios.post('/api/users/login',data)
@@ -17,6 +21,16 @@ export const login = createAsyncThunk('users/signup',async data => {
         return response.data
     }catch(err){
         // console.log(err)
+        return err.response.data
+    }
+})
+
+// logout
+export const logout = createAsyncThunk('users/logout',async () => {
+    try{
+        const response = await axios.get('/api/users/logout')
+        return response.data
+    }catch(err){
         return err.response.data
     }
 })
@@ -47,6 +61,14 @@ const usersSlice = createSlice({
                 }
                 if(action.payload.errors){
                     state.errors = action.payload.errors 
+                    state.user = null 
+                    localStorage.removeItem('user')
+                }
+            })
+            // logout
+            // fulfilled case
+            .addCase(logout.fulfilled,(state,action)=>{
+                if(action.payload.message === "logged out"){
                     state.user = null 
                     localStorage.removeItem('user')
                 }

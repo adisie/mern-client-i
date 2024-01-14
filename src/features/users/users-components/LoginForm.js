@@ -1,4 +1,4 @@
-import { useState,useLayoutEffect } from "react"
+import { useState} from "react"
 import { useDispatch,useSelector } from "react-redux"
 
 // actions from slices
@@ -7,13 +7,8 @@ import {
   setIsLogin,
   selectIsLoading,
   selectErrors,
-  selectUser,
   login,
 } from '../usersSlice'
-// easy nav
-import {
-  setMainDir,
-} from '../../easy-nav/easyNavSlice'
 
 // icons
 // username
@@ -36,7 +31,6 @@ const LoginForm = () => {
   // users slices
   const isLoading = useSelector(selectIsLoading)
   const errors = useSelector(selectErrors)
-  const user = useSelector(selectUser)
   
 
   // form field states
@@ -46,12 +40,6 @@ const LoginForm = () => {
   // hooks
   const dispatch = useDispatch()
 
-  // effects
-  useLayoutEffect(()=>{
-    if(user){
-      dispatch(setMainDir('HOME'))
-    }
-  },[])
 
   // validators
   // username validators

@@ -1,16 +1,11 @@
 import { useEffect } from 'react'
-import {useSelector,useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 
 // actions from slices
 // easy nav
 import {
   selectMainDir,
-  setMainDir,
 } from '../easy-nav/easyNavSlice'
-// users slice
-import {
-  selectUser,
-} from '../users/usersSlice'
 
 // side bar components
 import HomeMenuSideBar from './components/HomeMenuSideBar'
@@ -38,18 +33,6 @@ const Home = () => {
   // states from slices
   // easy nav
   const mainDir = useSelector(selectMainDir)
-  // users
-  const user = useSelector(selectUser)
-
-  // hooks
-  const dispatch = useDispatch()
-
-  // effects
-  useEffect(()=>{
-    if(user){
-      dispatch(setMainDir('HOME'))
-    }
-  })
 
   return (
     <div className='flex-grow'>

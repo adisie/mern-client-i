@@ -1,4 +1,4 @@
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 
 // actions from slices
 // easy navs
@@ -8,6 +8,8 @@ import {
 // users slices
 import {
   setIsLogin,
+  selectUser,
+  logout,
 } from '../../users/usersSlice'
 
 // home icon
@@ -21,8 +23,13 @@ import { IoChatbubblesSharp } from "react-icons/io5"
 // left arrow
 import { RiArrowLeftFill } from "react-icons/ri"
 
-
+//////////////////////////////////////
+//////////////////////////////////////
 const HomeMenuSideBar = () => {
+
+  // states from slices
+  // uses
+  const user = useSelector(selectUser)
 
   // hooks
   const dispatch = useDispatch()
@@ -46,6 +53,11 @@ const HomeMenuSideBar = () => {
     if(homeMainSideBar.classList.contains('absolute')){
       homeMainSideBar.classList.add('left-[-100vw]')
     }
+  }
+
+  // logout 
+  const logoutHandler = () => {
+    dispatch(logout())
   }
 
   return (
@@ -83,7 +95,7 @@ const HomeMenuSideBar = () => {
             <span>Channels</span>
           </li>
           {
-            !true
+            user
             ?
           <li className="mb-3 flex items-center cursor-pointer border-b border-emerald-700 border-opacity-[.1] transition-all ease-in-out duration-500 hover:ml-1" 
             onClick={()=>{
@@ -98,10 +110,15 @@ const HomeMenuSideBar = () => {
           }
         </ul>
         {
-          !true
+          user
           ?
           <div className="mt-5 flex items-center">
-            <button className="w-[65%] border border-emerald-700 border-opacity-[.5] py-[.13rem] rounded-sm">Logout</button>
+            <button className="w-[65%] border border-emerald-700 border-opacity-[.5] py-[.13rem] rounded-sm" 
+              onClick={()=>{
+                logoutHandler()
+                hideHomeMainSidBar()
+              }}
+            >Logout</button>
           </div>
           :
           <div className="mt-5 flex items-center">

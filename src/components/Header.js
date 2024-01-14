@@ -6,6 +6,10 @@ import {
     setMainDir,
     selectMainDir,
 } from '../features/easy-nav/easyNavSlice'
+// users
+import {
+    selectUser,
+} from '../features/users/usersSlice'
 
 // menu icon
 import { AiOutlineMenu } from "react-icons/ai"
@@ -18,10 +22,15 @@ import { CiSearch } from "react-icons/ci"
 import UnauthorizedHeader from "./header-sub-components/UnauthorizedHeader"
 import AuthorizedHeader from "./header-sub-components/AuthorizedHeader"
 
+//////////////////////////////////////////
+//////////////////////////////////////////
 const Header = () => {
 
     // states from slices
+    // easy nav
     const mainDir = useSelector(selectMainDir)
+    // users
+    const user = useSelector(selectUser)
 
     // hooks
     const dispatch = useDispatch()
@@ -112,9 +121,9 @@ const Header = () => {
             {/* header right side controllers container */}
             <div>
                 {
-                    false
+                    user
                     ?
-                    <AuthorizedHeader />
+                    <AuthorizedHeader user={user}/>
                     :
                     <UnauthorizedHeader />
                 }

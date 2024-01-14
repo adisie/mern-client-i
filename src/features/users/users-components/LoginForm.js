@@ -1,11 +1,19 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useState,useLayoutEffect } from "react"
+import { useDispatch,useSelector } from "react-redux"
 
 // actions from slices
 // users slcies
 import {
   setIsLogin,
+  selectIsLoading,
+  selectErrors,
+  selectUser,
+  login,
 } from '../usersSlice'
+// easy nav
+import {
+  setMainDir,
+} from '../../easy-nav/easyNavSlice'
 
 // icons
 // username
@@ -14,9 +22,22 @@ import { RiUser4Fill } from "react-icons/ri"
 import { BiSolidShow } from "react-icons/bi"
 import { BiSolidHide } from "react-icons/bi"
 
+// spinner
+import Spinner from "./Spinner"
+
+
+//////////////////////////////////////////
+//////////////////////////////////////////
 const LoginForm = () => {
   // local states
   const [isHidden,setIsHidden] = useState(true)
+
+  // states from slices
+  // users slices
+  const isLoading = useSelector(selectIsLoading)
+  const errors = useSelector(selectErrors)
+  const user = useSelector(selectUser)
+  
 
   // form field states
   const [username,setUsername] = useState('')
@@ -24,6 +45,13 @@ const LoginForm = () => {
 
   // hooks
   const dispatch = useDispatch()
+
+  // effects
+  useLayoutEffect(()=>{
+    if(user){
+      dispatch(setMainDir('HOME'))
+    }
+  },[])
 
   // validators
   // username validators
@@ -66,13 +94,17 @@ const LoginForm = () => {
       passwordError.textContent = 'password required'
     }else if(username.trim() && password){
       if(usernameError.textContent || passwordError.textContent){
-        console.log('YOU CANT SUBIT')
+        console.log('YOU CAN\'T SUBMIT')
       }else {
-        console.log('YOU CAN SUBMIT')
+        dispatch(login({username,password}))
       }
     }
   }
 
+  // spinner
+  if(isLoading){
+    return <Spinner />
+  }
   return (
     <div>
       <form className="bg-black bg-opacity-[.15] py-2 px-9 rounded-sm text-xs text-emerald-700 font-serif">
@@ -89,7 +121,7 @@ const LoginForm = () => {
             />
             <RiUser4Fill className="text-xl opacity-[.5]"/>
           </div>
-          <div className="text-center text-[.7rem] italic text-red-600" id="login-username-error"></div>
+          <div className="text-center text-[.7rem] italic text-red-600" id="login-username-error">{errors && errors.username ? errors.username : ''}</div>
         </div>
 
         {/* password */}
@@ -112,7 +144,7 @@ const LoginForm = () => {
               />
             }
           </div>
-          <div className="text-center text-[.7rem] italic text-red-600" id="login-password-error"></div>
+          <div className="text-center text-[.7rem] italic text-red-600" id="login-password-error">{errors && errors.password ? errors.password : ''}</div>
         </div>
 
         {/* /////////////////////// */}

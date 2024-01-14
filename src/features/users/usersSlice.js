@@ -13,8 +13,17 @@ const initialState = {
     errors: null,
 }
 
+// signup
+export const signup = createAsyncThunk('users/signup',async data => {
+    try{
+       const response = await axios.post('/api/users/signup',data)
+       return response.data 
+    }catch(err){
+        return err.response.data
+    }
+})
 // login
-export const login = createAsyncThunk('users/signup',async data => {
+export const login = createAsyncThunk('users/login',async data => {
     try{
         const response = await axios.post('/api/users/login',data)
         // console.log(response)
@@ -41,11 +50,34 @@ const usersSlice = createSlice({
     reducers: {
         setIsLogin: (state,action) => {
             state.isLogin = action.payload
+        },
+        resetErrors: state => {
+            state.errors = null
         }
     },
     extraReducers: builder => {
         builder
             // cases
+            // signup case
+            // pending case
+            .addCase(signup.pending,state =>{
+                state.isLoading = true 
+            })
+            // fulfilled case
+            .addCase(signup.fulfilled,(state,action)=> {
+                state.isLoading = false 
+                if(action.payload?.user){
+                    state.user = action.payload.user 
+                    state.errors = null 
+                    localStorage.setItem('user',JSON.stringify(action.payload.user))
+                }
+
+                if(action.payload?.errors){
+                    state.errors = action.payload.errors 
+                    state.user = null 
+                    localStorage.removeItem('user')
+                }
+            })
             // login case
             // pending case
             .addCase(login.pending,state=>{
@@ -54,16 +86,21 @@ const usersSlice = createSlice({
             // fullfilled case
             .addCase(login.fulfilled,(state,action)=>{
                 state.isLoading = false 
-                if(action.payload.user){
+                if(action.payload?.user){
                     state.user = action.payload.user 
                     state.errors = null 
                     localStorage.setItem('user',JSON.stringify(action.payload.user))
                 }
-                if(action.payload.errors){
+                if(action.payload?.errors){
                     state.errors = action.payload.errors 
                     state.user = null 
                     localStorage.removeItem('user')
                 }
+            })
+            // rejected case
+            .addCase(login.rejected,state => {
+                console.log('REJECTED')
+                state.isLoading = false
             })
             // logout
             // fulfilled case
@@ -83,6 +120,7 @@ export const selectUser = state => state.users.user
 
 export const {
     setIsLogin,
+    resetErrors,
 } = usersSlice.actions
 
 export default usersSlice.reducer

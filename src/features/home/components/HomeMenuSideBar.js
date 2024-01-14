@@ -9,6 +9,7 @@ import {
 import {
   setIsLogin,
   selectUser,
+  resetErrors,
   logout,
 } from '../../users/usersSlice'
 
@@ -117,6 +118,7 @@ const HomeMenuSideBar = () => {
               onClick={()=>{
                 logoutHandler()
                 hideHomeMainSidBar()
+                dispatch(resetErrors())
               }}
             >Logout</button>
           </div>
@@ -127,6 +129,7 @@ const HomeMenuSideBar = () => {
                 setMainDirHandler('AUTH')
                 dispatch(setIsLogin(true))
                 hideHomeMainSidBar()
+                dispatch(resetErrors())
               }}
             >Login</button>
           </div>

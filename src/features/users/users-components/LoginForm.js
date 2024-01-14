@@ -7,6 +7,7 @@ import {
   setIsLogin,
   selectIsLoading,
   selectErrors,
+  resetErrors,
   login,
 } from '../usersSlice'
 
@@ -148,6 +149,7 @@ const LoginForm = () => {
           <div className="my-2 text-gray-500 cursor-pointer hover:underline hover:text-gray-600" 
             onClick={()=>{
               dispatch(setIsLogin(false))
+              dispatch(resetErrors())
             }}
           >
             <span>no account?</span>

@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux'
 // users
 import {
   logout,
+  resetErrors,
 } from '../../features/users/usersSlice'
 
 // user default profile picture
@@ -16,6 +17,7 @@ const AuthorizedHeader = ({user}) => {
   // logout handler
   const logoutHandler = () => {
     dispatch(logout())
+    dispatch(resetErrors())
   }
 
   return (

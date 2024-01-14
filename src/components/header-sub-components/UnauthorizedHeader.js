@@ -8,6 +8,7 @@ import {
 // user slices
 import {
   setIsLogin,
+  resetErrors,
 } from '../../features/users/usersSlice'
 
 const UnauthorizedHeader = () => {
@@ -25,6 +26,7 @@ const UnauthorizedHeader = () => {
               onClick={()=>{
                 setMainDirHandler('AUTH')
                 dispatch(setIsLogin(true))
+                dispatch(resetErrors())
               }}
             >login</button>
         </div>
@@ -33,6 +35,7 @@ const UnauthorizedHeader = () => {
           onClick={()=>{
             setMainDirHandler('AUTH')
             dispatch(setIsLogin(false))
+            dispatch(resetErrors())
           }}
         >signup</button>
         </div>

@@ -1,10 +1,14 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch,useSelector } from "react-redux"
 
 // actions from slices
 // users slcies
 import {
   setIsLogin,
+  selectErrors,
+  selectIsLoading,
+  resetErrors,
+  signup,
 } from '../usersSlice'
 
 // icons
@@ -16,10 +20,20 @@ import { MdEmail } from "react-icons/md"
 import { BiSolidShow } from "react-icons/bi"
 import { BiSolidHide } from "react-icons/bi"
 
+// spinner
+import Spinner from "./Spinner"
+
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
 const SignupForm = () => {
   // local states
   const [isHidden,setIsHidden] = useState(true)
   const [isHidden2,setIsHidden2] = useState(true)
+
+  // states from slices
+  // users
+  const isLoading = useSelector(selectIsLoading)
+  const errors = useSelector(selectErrors)
 
   // form field states
   const [username,setUsername] = useState('')
@@ -59,19 +73,32 @@ const SignupForm = () => {
   // password validator
   const passwordValidator = () => {
     let passwordError = document.querySelector('#signup-password-error')
+    let password2Error = document.querySelector('#signup-password2-error')
     if(!password){
       passwordError.textContent = 'password required'
     }else if(password.length < 3){
       passwordError.textContent = 'too short password'
-    }else {
+    }else if(password && password2){
+      if(password !== password2){
+        password2Error.textContent = 'passwords not match'
+      }else {
+        password2Error.textContent = ''
+      }
+    }
+    else {
       passwordError.textContent = ''
+      password2Error.textContent = ''
     }
   }
 
   // password2 validator
   const password2Validator = () => {
+    let passwordError = document.querySelector('#signup-password-error')
     let password2Error = document.querySelector('#signup-password2-error')
-    if(!password2){
+    if(!password){
+      password2Error.textContent = ''
+      passwordError.textContent = 'password required'
+    }else if(!password2){
       password2Error.textContent = 'confrim password'
     }else if(password !== password2){
       password2Error.textContent = 'passwords not match'
@@ -111,9 +138,14 @@ const SignupForm = () => {
       if(usernameError.textContent || emailError.textContent || passwordError.textContent || password2Error.textContent){
         console.log('YOU CANT SUBMIT')
       }else{
-        console.log('YOU CAN SUBMIT')
+        dispatch(signup({username,email,password}))
       }
     }
+  }
+
+  // spinner
+  if(isLoading){
+    return <Spinner />
   }
 
   return (
@@ -132,7 +164,7 @@ const SignupForm = () => {
             />
             <RiUser4Fill className="text-xl opacity-[.5]"/>
           </div>
-          <div className="text-center text-[.7rem] italic text-red-600" id="signup-username-error"></div>
+          <div className="text-center text-[.7rem] italic text-red-600" id="signup-username-error">{errors && errors.username ? errors.username : ''}</div>
         </div>
 
         {/* email */}
@@ -145,7 +177,7 @@ const SignupForm = () => {
             />
             <MdEmail className="text-xl opacity-[.5]"/>
           </div>
-          <div className="text-center text-[.7rem] italic text-red-600" id="signup-email-error"></div>
+          <div className="text-center text-[.7rem] italic text-red-600" id="signup-email-error">{errors && errors.email ? errors.email : ''}</div>
         </div>
 
         {/* password */}
@@ -168,7 +200,7 @@ const SignupForm = () => {
               />
             }
           </div>
-          <div className="text-center text-[.7rem] italic text-red-600" id="signup-password-error"></div>
+          <div className="text-center text-[.7rem] italic text-red-600" id="signup-password-error">{errors && errors.password ? errors.password : ''}</div>
         </div>
 
         {/* confrim password */}
@@ -205,6 +237,7 @@ const SignupForm = () => {
         <div className="my-2 text-gray-500 cursor-pointer hover:underline hover:text-gray-600" 
           onClick={()=>{
             dispatch(setIsLogin(true))
+            dispatch(resetErrors())
           }}
         >
           <span>have an account?</span>

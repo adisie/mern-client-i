@@ -34,6 +34,40 @@ export const login = createAsyncThunk('users/login',async data => {
         return err.response.data
     }
 })
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+////////////// profiles //////////////////////////////
+//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+// get my profiles
+export const getMyProfiles = createAsyncThunk('users/getMyProfiles',async () => {
+    try{
+        const response = await axios.get('/api/profiles/get-all-my-profiles')
+        return response.data
+    }catch(err){
+        return err.response.data
+    }
+})
+
+// add new profile
+export const addNewProfile = createAsyncThunk('users/addNewProfile',async formData => {
+    try{
+        const response = await axios.post('/api/profiles/new-profile',formData)
+        return response.data
+    }catch(err){
+        return err.response.data
+    }
+})
+
+// delete profile
+export const deleteProfile = createAsyncThunk('users/deleteProfile',async _id => {
+    try{
+        const response = await axios.delete(`/api/profiles/delete-profile/${_id}`)
+        return response.data
+    }catch(err){
+        return err.response.data
+    }
+})
 
 // logout
 export const logout = createAsyncThunk('users/logout',async () => {
@@ -106,6 +140,31 @@ const usersSlice = createSlice({
                 console.log('REJECTED')
                 state.isLoading = false
             })
+
+            // profiles cases
+            // delete profile cases
+            .addCase(deleteProfile.fulfilled,(state,action) => {
+                if(action.payload._id){
+                    state.myProfiles = state.myProfiles.filter(profile => profile._id !== action.payload._id)
+                }
+            })
+
+            // add new profile
+            // fulfilled case
+            .addCase(addNewProfile.fulfilled,(state,action)=>{
+                if(action.payload.profile){
+                    state.myProfiles = [action.payload.profile,...state.myProfiles]
+                }
+            })
+
+            // get all my profiles case
+            // fulfilled case
+            .addCase(getMyProfiles.fulfilled,(state,action)=>{
+                if(action.payload.profiles){
+                    state.myProfiles = action.payload.profiles
+                }
+            })
+
             // logout
             // fulfilled case
             .addCase(logout.fulfilled,(state,action)=>{

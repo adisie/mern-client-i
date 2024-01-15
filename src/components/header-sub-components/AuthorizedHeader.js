@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import {useDispatch} from 'react-redux'
 
 // actions from slices
@@ -5,14 +7,12 @@ import {useDispatch} from 'react-redux'
 import {
   logout,
   resetErrors,
+  getMyProfiles,
 } from '../../features/users/usersSlice'
 // easy nav
 import {
   setMainDir,
 } from '../../features/easy-nav/easyNavSlice'
-
-// user default profile picture
-import userDefaultProfile from '../../assets/images/defaults/male-profile-3.jpg'
 
 // user profile render
 import GetUserProfile from '../../features/users/users-components/GetUserProfile'
@@ -21,10 +21,16 @@ const AuthorizedHeader = ({user}) => {
   // hooks
   const dispatch = useDispatch()
 
+  // effects
+  useEffect(()=>{
+    dispatch(getMyProfiles())
+  })
+
   // logout handler
   const logoutHandler = () => {
     dispatch(logout())
     dispatch(resetErrors())
+    dispatch(setMainDir('HOME'))
   }
 
   return (

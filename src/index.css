@@ -15,3 +15,23 @@
     border-radius: 3px;
     background: rgb(174, 174, 174);
 }
+
+#post-text-area {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    resize: none;
+    outline: none;
+    padding: 0 .3rem;
+    border-radius: .3rem;
+    width: 230px;
+    height: 26px;
+    max-height: 400px;
+    margin-left: .5rem;
+}
+
+#post-text-area::-webkit-scrollbar {
+    display: none;
+}
+
+#post-text-area:focus {
+    border-color: rgba(0, 0, 0, 0.35);
+}

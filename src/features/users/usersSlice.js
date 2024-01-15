@@ -11,6 +11,7 @@ const initialState = {
     isLoading: false,
     isError: false,
     errors: null,
+    myProfiles: []
 }
 
 // signup
@@ -91,6 +92,9 @@ const usersSlice = createSlice({
                     state.errors = null 
                     localStorage.setItem('user',JSON.stringify(action.payload.user))
                 }
+                if(action.payload?.profiles){
+                    state.profiles = action.payload.profiles
+                }
                 if(action.payload?.errors){
                     state.errors = action.payload.errors 
                     state.user = null 
@@ -117,6 +121,7 @@ export const selectIsLogin = state => state.users.isLogin
 export const selectIsLoading = state => state.users.isLoading
 export const selectErrors = state => state.users.errors 
 export const selectUser = state => state.users.user
+export const selectMyProfiles = state => state.users.myProfiles
 
 export const {
     setIsLogin,

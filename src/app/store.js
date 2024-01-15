@@ -9,11 +9,14 @@ import easyNavReducer from '../features/easy-nav/easyNavSlice'
 import groupsReducer from '../features/groups/groupsSlice'
 // users reducers
 import usersReducer from '../features/users/usersSlice'
+// profiles
+import profilesReducer from '../features/profile/profilesSlice'
 
 export const store = configureStore({
     reducer: {
         nav: easyNavReducer,
         groups: groupsReducer,
         users: usersReducer,
+        profiles: profilesReducer,
     },
 })

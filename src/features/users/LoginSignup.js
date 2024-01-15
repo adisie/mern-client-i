@@ -11,6 +11,10 @@ import {
 import {
   setMainDir,
 } from '../easy-nav/easyNavSlice'
+// profiles
+import {
+  getMyProfiles,
+} from '../profile/profilesSlice'
 
 // login and signup form components
 import LoginForm from "./users-components/LoginForm"

@@ -93,7 +93,7 @@ const usersSlice = createSlice({
                     localStorage.setItem('user',JSON.stringify(action.payload.user))
                 }
                 if(action.payload?.profiles){
-                    state.profiles = action.payload.profiles
+                    state.myProfiles = action.payload.profiles
                 }
                 if(action.payload?.errors){
                     state.errors = action.payload.errors 

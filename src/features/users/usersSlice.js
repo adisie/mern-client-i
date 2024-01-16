@@ -8,6 +8,7 @@ const localUser = JSON.parse((localStorage.getItem('user')))
 const initialState = {
     isLogin: true,
     user: localUser ? localUser : null,
+    allUsers: [],
     isLoading: false,
     isError: false,
     errors: null,
@@ -31,6 +32,16 @@ export const login = createAsyncThunk('users/login',async data => {
         return response.data
     }catch(err){
         // console.log(err)
+        return err.response.data
+    }
+})
+
+// get all users
+export const getAllUsers = createAsyncThunk('users/getAllUsers',async () => {
+    try{
+        const response = await axios.get('/api/users/get-all-users')
+        return response.data
+    }catch(err){
         return err.response.data
     }
 })
@@ -141,6 +152,14 @@ const usersSlice = createSlice({
                 state.isLoading = false
             })
 
+            // get all users case
+            // fulfilled case
+            .addCase(getAllUsers.fulfilled,(state,action) =>{
+                if(action.payload.users){
+                    state.allUsers = action.payload.users 
+                    }
+            })
+
             // profiles cases
             // delete profile cases
             .addCase(deleteProfile.fulfilled,(state,action) => {
@@ -180,6 +199,7 @@ export const selectIsLogin = state => state.users.isLogin
 export const selectIsLoading = state => state.users.isLoading
 export const selectErrors = state => state.users.errors 
 export const selectUser = state => state.users.user
+export const selectAllUsers = state => state.users.allUsers
 export const selectMyProfiles = state => state.users.myProfiles
 
 export const {

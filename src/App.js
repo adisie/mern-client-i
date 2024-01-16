@@ -6,6 +6,10 @@ import {useDispatch} from 'react-redux'
 import {
   getAllPosts,
 } from './features/posts/postsSlice'
+// users
+import {
+  getAllUsers,
+} from './features/users/usersSlice'
 
 // components
 import Header from "./components/Header"
@@ -20,6 +24,9 @@ const App = () => {
   // effects
   useEffect(()=>{
     dispatch(getAllPosts())
+  })
+  useEffect(()=>{
+    dispatch(getAllUsers())
   })
   
   return (

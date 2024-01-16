@@ -11,6 +11,8 @@ import groupsReducer from '../features/groups/groupsSlice'
 import usersReducer from '../features/users/usersSlice'
 // profiles
 import profilesReducer from '../features/profile/profilesSlice'
+// posts reducers
+import postsReducer from '../features/posts/postsSlice'
 
 export const store = configureStore({
     reducer: {
@@ -18,5 +20,6 @@ export const store = configureStore({
         groups: groupsReducer,
         users: usersReducer,
         profiles: profilesReducer,
+        posts: postsReducer,
     },
 })

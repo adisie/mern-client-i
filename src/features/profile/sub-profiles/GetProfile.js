@@ -1,18 +1,37 @@
+import { useLayoutEffect } from "react"
+import { useSelector,useDispatch } from "react-redux"
+import {MAIN_URL} from '../../../config'
+
+// actions from slices
+// users
+import {
+  selectAllUsersProfiles,
+  getUsersProfiles,
+} from '../../users/usersSlice'
 
 // icons
 // user profile icon
 import { LuUserCircle } from "react-icons/lu"
 
-// author profile
-import defaultUserProfile from '../../../assets/images/defaults/male-profile-3.jpg'
+const GetProfile = ({userId}) => {
+  // states from slices
+  const allUsersProfiles = useSelector(selectAllUsersProfiles)
+  let profiles = allUsersProfiles.find(up=>up._id === userId).profiles 
 
-const GetProfile = () => {
+  // hooks
+  const dispatch = useDispatch()
+
+  // effects
+  useLayoutEffect(()=>{
+    dispatch(getUsersProfiles())
+  })
+  
   return (
     <>
     {
-        !true 
+        profiles.length > 0 
         ?
-        <img src={defaultUserProfile} alt="" className='w-[26px] h-[26px] rounded-full mr-1'/>
+        <img src={`${MAIN_URL}/${profiles[profiles.length-1].profilePath}`} alt="" className='w-[26px] h-[26px] rounded-full mr-1'/>
         :
         <LuUserCircle className="text-2xl opacity-[.9] mr-1"/>
     }

@@ -9,6 +9,7 @@ import {
 // users
 import {
   getAllUsers,
+  getUsersProfiles,
 } from './features/users/usersSlice'
 
 // components
@@ -27,6 +28,7 @@ const App = () => {
   })
   useEffect(()=>{
     dispatch(getAllUsers())
+    dispatch(getUsersProfiles())
   })
   
   return (

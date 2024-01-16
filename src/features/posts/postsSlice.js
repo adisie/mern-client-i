@@ -17,6 +17,16 @@ export const getAllPosts = createAsyncThunk('posts/getAllPosts',async () => {
     }
 })
 
+// delete single post
+export const deleteSinglePost = createAsyncThunk('posts/deleteSinglePost',async _id => {
+    try{
+        const response = await axios.delete(`/api/posts/delete-single-post/${_id}`)
+        return response.data
+    }catch(err){
+        return err.response.data
+    }
+})
+
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
@@ -35,6 +45,18 @@ const postsSlice = createSlice({
             // rejected case
             .addCase(getAllPosts.rejected,state => {
                 console.log('rejected case')
+            })
+
+            /// delete single post cases
+            // fulfilled case
+            .addCase(deleteSinglePost.fulfilled,(state,action)=>{
+                if(action.payload._id){
+                    state.allPosts = state.allPosts.filter(post=>post._id !== action.payload._id)
+                }
+            })
+            // rejected case
+            .addCase(deleteSinglePost.rejected,state => {
+                console.log('delete single post rejected case')
             })
     },
 })

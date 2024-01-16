@@ -9,6 +9,7 @@ const initialState = {
     isLogin: true,
     user: localUser ? localUser : null,
     allUsers: [],
+    allUsersProfiles: [],
     isLoading: false,
     isError: false,
     errors: null,
@@ -45,6 +46,17 @@ export const getAllUsers = createAsyncThunk('users/getAllUsers',async () => {
         return err.response.data
     }
 })
+
+// get users and profiles
+export const getUsersProfiles = createAsyncThunk('users/getUsersProfiles',async () => {
+    try{
+        const response = await axios.get('/api/users/get-users-profiles')
+        return response.data
+    }catch(err){
+        return err.response.data
+    }
+})
+
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 ////////////// profiles //////////////////////////////
@@ -160,6 +172,18 @@ const usersSlice = createSlice({
                     }
             })
 
+            // get users and profiles
+            // fulfilled case
+            .addCase(getUsersProfiles.fulfilled,(state,action) => {
+                if(action.payload.usersProfiles){
+                    state.allUsersProfiles = action.payload.usersProfiles
+                }
+            })
+            // rejected case
+            .addCase(getUsersProfiles.rejected,state => {
+                console.log('get users and profiles rejected')
+            })
+
             // profiles cases
             // delete profile cases
             .addCase(deleteProfile.fulfilled,(state,action) => {
@@ -200,6 +224,7 @@ export const selectIsLoading = state => state.users.isLoading
 export const selectErrors = state => state.users.errors 
 export const selectUser = state => state.users.user
 export const selectAllUsers = state => state.users.allUsers
+export const selectAllUsersProfiles = state => state.users.allUsersProfiles
 export const selectMyProfiles = state => state.users.myProfiles
 
 export const {

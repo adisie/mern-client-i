@@ -1,9 +1,13 @@
-import {useSelector} from 'react-redux'
+import {formatDistanceToNow} from 'date-fns'
+import {useSelector,useDispatch} from 'react-redux'
 
 // actions from slice
 import {
     selectUser,
 } from '../../users/usersSlice'
+import {
+    deleteSinglePost,
+} from '../postsSlice'
 
 // icons
 // like
@@ -25,6 +29,14 @@ const SinglePost = ({post}) => {
     // states from slices
     const user = useSelector(selectUser)
 
+    // hooks
+    const dispatch = useDispatch()
+
+    // delete single post
+    const deleteSinglePostHandler = _id => {
+        dispatch(deleteSinglePost(_id))
+    }
+
   return (
     <div className="mb-3 border-b border-emerald-700 border-opacity-[.13] pb-2 px-1">
     {/* posts content */}
@@ -37,7 +49,7 @@ const SinglePost = ({post}) => {
     <div className='flex items-center text-emerald-900 text-xs font-serif'>
         {/* author name and profile */}
         <div className='flex items-center cursor-pointer mr-3'>
-            <GetProfile />
+            <GetProfile userId={post.authorId}/>
             {/* author name */}
             <GetUsername userId={post.authorId}/>
             {
@@ -55,12 +67,16 @@ const SinglePost = ({post}) => {
             <span>7</span>
             <button className="text-xl mx-1"><RiMessage2Fill /></button>
             {
-                user && user._id === post.authorId && <button className="text-xl mr-1 text-gray-700"><IoMdTrash /></button>
+                user && user._id === post.authorId && <button className="text-xl mr-1 text-gray-700" 
+                    onClick={()=>{
+                        deleteSinglePostHandler(post._id)
+                    }}
+                ><IoMdTrash /></button>
             }
         </div>
         {/* date */}
         <div className="flex items-center text-xs italic">
-            <span>date</span>
+            <span>{formatDistanceToNow(new Date(post.createdAt),{addSuffix: true})}</span>
         </div>
     </div>
 </div>

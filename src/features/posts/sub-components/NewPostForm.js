@@ -34,7 +34,7 @@ const NewPostForm = () => {
   return (
     <div className='flex items-center justify-center relative'>
         <div className='flex-grow flex bg-red-700'>
-            <div className='absolute bottom-0 flex items-center bg-white flex-grow w-full'>
+            <div className='absolute bottom-0 flex items-center justify-center bg-white flex-grow w-full'>
                 <textarea name="text" className="font-serif text-sm text-emerald-900" id='post-text-area' placeholder="text here ..." 
                     onKeyUp={adjustTextAreaHeight} 
                     value={text} 

@@ -16,7 +16,7 @@ import { LuUserCircle } from "react-icons/lu"
 const GetProfile = ({userId}) => {
   // states from slices
   const allUsersProfiles = useSelector(selectAllUsersProfiles)
-  let profiles = allUsersProfiles.find(up=>up._id === userId).profiles 
+  let profiles = allUsersProfiles.find(up=>up._id === userId)?.profiles 
 
   // hooks
   const dispatch = useDispatch()
@@ -29,7 +29,7 @@ const GetProfile = ({userId}) => {
   return (
     <>
     {
-        profiles.length > 0 
+        profiles?.length > 0 
         ?
         <img src={`${MAIN_URL}/${profiles[profiles.length-1].profilePath}`} alt="" className='w-[26px] h-[26px] rounded-full mr-1'/>
         :

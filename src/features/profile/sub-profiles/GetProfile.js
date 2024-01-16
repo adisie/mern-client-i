@@ -23,7 +23,7 @@ const GetProfile = ({userId}) => {
 
   // effects
   useLayoutEffect(()=>{
-    dispatch(getUsersProfiles())
+    // dispatch(getUsersProfiles())
   })
   
   return (

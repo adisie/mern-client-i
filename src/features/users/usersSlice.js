@@ -111,7 +111,7 @@ const usersSlice = createSlice({
         },
         resetErrors: state => {
             state.errors = null
-        }
+        },
     },
     extraReducers: builder => {
         builder

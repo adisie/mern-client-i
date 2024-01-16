@@ -28,8 +28,10 @@ const App = () => {
   })
   useEffect(()=>{
     dispatch(getAllUsers())
-    dispatch(getUsersProfiles())
   })
+  useEffect(()=>{
+    dispatch(getUsersProfiles())
+  },[])
   
   return (
     <div className="w-screen h-screen flex flex-col">

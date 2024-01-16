@@ -22,6 +22,9 @@ import { CiSearch } from "react-icons/ci"
 import UnauthorizedHeader from "./header-sub-components/UnauthorizedHeader"
 import AuthorizedHeader from "./header-sub-components/AuthorizedHeader"
 
+// header search bars
+import PostsSearchBar from "../features/posts/sub-components/PostsSearchBar"
+
 //////////////////////////////////////////
 //////////////////////////////////////////
 const Header = () => {
@@ -83,14 +86,7 @@ const Header = () => {
             {
                 mainDir === 'HOME'
                 ?
-                <div className="flex-grow flex items-center justify-end">
-                    <div className="flex-grow flex items-center justify-end mr-3">
-                        <div className="flex items-center py-[.1rem] bg-black bg-opacity-[.13] rounded-full px-1">
-                            <CiSearch className="text-emerald-700 text-xl cursor-pointer"/>
-                            <input type="text" className="border-none bg-transparent focus:outline-none text-emerald-700 text-xs font-serif" placeholder="username..."/>
-                        </div>
-                    </div>
-                </div>
+                <PostsSearchBar />
                 :
                 mainDir === 'GROUPS'
                 ?
